@@ -82,5 +82,19 @@ export default StyleSheet.create({
         "textAlign": "center",
         "fontSize": 20,
         "fontWeight": "bold"
+    },
+    "angle-title": {
+        "fontFamily": "'Myriad Pro', 'arial'",
+        "fontSize": 100,
+        "textAlign": "center",
+        "marginBottom": 30,
+        "color": "white"
+    },
+    "screen-angle": {
+        "fontFamily": "'Myriad Pro', 'arial'",
+        "width": "100%",
+        "fontSize": 80,
+        "textAlign": "center",
+        "color": "white"
     }
 });

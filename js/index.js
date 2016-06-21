@@ -1,3 +1,24 @@
+var SERVER_URL = "ws:localhost:9090";
+var WS         = new WebSocket(SERVER_URL);
+var ANGLE      = 0;
+
+function socketSetup () {
+  WS.onopen = function () {
+    console.log("Connection opened...");
+    WS.send(JSON.stringify(eval("({ angle: " + 0 + "})")));
+  }
+  WS.onmessage = function (e) {
+		ANGLE = JSON.parse(e.data).angle * 25;
+		update_mouse();
+  }
+  WS.onclose = function (e) {
+    console.log("Connection closed...");
+  }
+  WS.onerror = function (e) {
+    console.log("Connection error...");
+  }
+};
+
 var pHeart = [
 
 	//ligne
@@ -151,7 +172,7 @@ function ball() {
 		x : 0,
 		y : oSize.h - 100,
 		h : 10,
-		w : 100,
+		w : 300,
 		c : '#fff',
 		img : document.getElementById("bar-default")
 	};
@@ -440,13 +461,12 @@ canvas.height 	= oSize.h;
 canvas.width 	= oSize.w;
 
 rand = function( min, max ){ return Math.random() * ( max - min) + min; };
-update_mouse = function( _e ){ oMouse.y = _e.pageY; oMouse.x = _e.pageX; };
+update_mouse = function(){ oMouse.x = ANGLE + (window.innerWidth/2); };
 onresize = function () { oSize.w = canvas.width = window.innerWidth; oSize.h = canvas.height = window.innerHeight; };
 merge = function(o1,o2){var o3 = {};for (var attr in o1) { o3[attr] = o1[attr]; }for (var attr in o2) { o3[attr] = o2[attr]; }return o3;}
 
 var oBall = new ball();
 
-document.addEventListener('mousemove', update_mouse, false);
 document.addEventListener('onresize', onresize, false);
 window.onresize();
 
@@ -463,6 +483,6 @@ function render(){
 		oBall.new_lvl();
 
 	requestAnimationFrame( render );
-
+	socketSetup();
 }
 render();
