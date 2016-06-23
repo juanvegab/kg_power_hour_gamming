@@ -78,14 +78,13 @@ var Blocs = function( type ){
 	this.strokeColor = 'white',
 	this.spriteX 	= 0;
 	this.spriteY 	= 0;
-	Blocs.prototype.draw = function( ctx ){
+	Blocs.prototype.draw = function( ctx ) {
 		ctx.strokeStyle = this.strokeColor;
 		ctx.fillStyle   = this.fillColor;
 		ctx.fillRect(this.x, this.y, this.w, this.h);
 		ctx.strokeRect(this.x, this.y, this.w, this.h);
 	};
-	Blocs.prototype.ghost = function( ctx )
-	{
+	Blocs.prototype.ghost = function( ctx ) {
 		ctx.fillStyle = "rgba( 0, 0, 0, 0.2 )";
 		ctx.fillRect( this.x, this.y, this.w, this.h );
 		this.img 		= document.getElementById('bloc-explosion');
@@ -105,22 +104,16 @@ var Blocs = function( type ){
 			this.spriteX += 96;
 		}
 	};
-	Blocs.prototype.collision = function()
-	{
+	Blocs.prototype.collision = function(){
 		this.spriteY += this.sh;
 	};
-	Blocs.prototype.die = function()
-	{
+	Blocs.prototype.die = function(){
 		this.customeDie();
 	};
-	Blocs.prototype.customeDie = function()
-	{ return true; };
-	Blocs.prototype.animDie = function()
-	{ return true; };
-	Blocs.prototype.launch = function()
-	{};
-	Blocs.prototype.init = function( type )
-	{
+	Blocs.prototype.customeDie = function(){ return true; };
+	Blocs.prototype.animDie = function(){ return true; };
+	Blocs.prototype.launch = function(){};
+	Blocs.prototype.init = function( type ){
 		this.sw 		= oBlocs[type].sw || this.sw;
 		this.sh 		= oBlocs[type].sh || this.sh;
 		this.life 		= oBlocs[type].life || this.life;
@@ -150,6 +143,7 @@ var oLevels = {
 		map : pHeart
 	}
 }
+
 function ball() {
 	this.defaultSetting = {
 		x : oMouse.x,
@@ -168,7 +162,7 @@ function ball() {
 			h : ( oSize.w / 50 ) / 1.8
 		}
 	};
-	this.oBar		= {
+	this.oBar		  = {
 		x : 0,
 		y : oSize.h - 100,
 		h : 10,
@@ -179,7 +173,7 @@ function ball() {
 	this.aBalls 	= [];
 	this.aBlocs 	= [];
 	this.aAnims 	= [];
-	this.aLvls = [
+	this.aLvls    = [
 		oLevels.heart
 	];
 	this.bSufateuse = false;
@@ -197,7 +191,7 @@ function ball() {
 			x : 0,
 			y : oSize.h - 100,
 			h : 10,
-			w : 100,
+			w : 300,
 			c : '#fff',
 			img : document.getElementById("bar-default")
 		};
@@ -483,6 +477,7 @@ function render(){
 		oBall.new_lvl();
 
 	requestAnimationFrame( render );
-	socketSetup();
 }
+
 render();
+socketSetup();
